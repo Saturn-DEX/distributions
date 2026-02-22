@@ -45,8 +45,7 @@ saturndex-distributions/
        "address": "0x...",
        "name": "Your Token",
        "symbol": "YTK",
-       "decimals": 18,
-       "type": "ERC20"
+       "decimals": 18
      },
      "distributor": "0x...",
      "registry": "0x...",
@@ -99,16 +98,18 @@ npx ts-node scripts/distribution/merkle.ts generate \
   --input ./snapshots/holders.json \
   --output ./merkle/output
 
-# Deploy distributor
+# Deploy distributor (deployment and funding are separate steps)
 npx ts-node scripts/distribution/deploy-distributor.ts \
   --network ethereum \
   --token 0x... \
   --merkle-root 0x... \
-  --token-type ERC223 \
   --deadline 0 \
   --registry 0x...
 
-# Register and fund (done via hardhat)
+# Fund the distributor (separate step, can be done by project owner)
+# For NATIVE: Send tokens directly to distributor address
+# For ERC20/ERC223: Use token.transfer(distributorAddress, amount)
+
 # Then copy merkle files to this repo
 ```
 
@@ -125,12 +126,7 @@ npx ts-node scripts/distribution/deploy-distributor.ts \
 |-------|--------|----------|
 | Ethereum | `ethereum/` | 1 |
 | Ethereum Classic | `classic/` | 61 |
-| Base | `base/` | 8453 |
-| Optimism | `optimism/` | 10 |
-| Arbitrum | `arbitrum/` | 42161 |
-| Polygon | `polygon/` | 137 |
-| BSC | `bsc/` | 56 |
-| Avalanche | `avalanche/` | 43114 |
+
 
 ## License
 
