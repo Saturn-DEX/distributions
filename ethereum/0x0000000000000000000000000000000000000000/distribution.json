@@ -1,0 +1,25 @@
+{
+  "_comment": "EXAMPLE FILE - Replace with actual distribution data",
+  "chainId": 1,
+  "chainName": "ethereum",
+  "name": "Example Distribution",
+  "description": "This is an example distribution file. Replace with actual distribution data.",
+  "token": {
+    "address": "0x0000000000000000000000000000000000000000",
+    "name": "Example Token",
+    "symbol": "EXAMPLE",
+    "decimals": 18,
+    "type": "ERC20"
+  },
+  "distributor": "0x0000000000000000000000000000000000000000",
+  "registry": "0x0000000000000000000000000000000000000000",
+  "merkleRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "deadline": 0,
+  "createdAt": 1700000000,
+  "totalRecipients": 0,
+  "totalAmount": "0",
+  "createdBy": "0x0000000000000000000000000000000000000000",
+  "website": "https://example.com",
+  "twitter": "https://twitter.com/example",
+  "logo": "https://example.com/logo.png"
+}
