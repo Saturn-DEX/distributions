@@ -35,8 +35,13 @@ function validateMerkleTree(treeData, expectedRoot) {
   }
   
   // Verify merkle root matches if provided
-  if (expectedRoot && treeData.root !== expectedRoot) {
-    errors.push(`Merkle root mismatch: ${treeData.root} vs expected ${expectedRoot}`);
+  // Handle standard-v1 format where root is tree[0]
+  const actualRoot = treeData.format === 'standard-v1' && treeData.tree?.[0] 
+    ? treeData.tree[0] 
+    : treeData.root;
+  
+  if (expectedRoot && actualRoot !== expectedRoot) {
+    errors.push(`Merkle root mismatch: ${actualRoot} vs expected ${expectedRoot}`);
   }
   
   // Validate each leaf
@@ -125,7 +130,10 @@ async function main() {
       } else {
         console.log(`  ✓ Valid`);
         console.log(`  - Leaves: ${treeData.values.length}`);
-        console.log(`  - Root: ${treeData.root}`);
+        const displayRoot = treeData.format === 'standard-v1' && treeData.tree?.[0] 
+          ? treeData.tree[0] 
+          : treeData.root;
+        console.log(`  - Root: ${displayRoot}`);
       }
     } catch (error) {
       hasErrors = true;

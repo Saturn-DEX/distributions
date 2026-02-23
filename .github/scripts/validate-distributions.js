@@ -33,7 +33,7 @@ const REQUIRED_FIELDS = [
   'createdBy'
 ];
 
-const TOKEN_REQUIRED_FIELDS = ['address', 'name', 'symbol', 'decimals', 'type'];
+const TOKEN_REQUIRED_FIELDS = ['address', 'name', 'symbol', 'decimals'];
 
 function isValidAddress(address) {
   try {
@@ -94,10 +94,6 @@ async function validateDistributionFile(filePath) {
         if (!(field in data.token)) {
           errors.push(`Missing required token field: ${field}`);
         }
-      }
-      
-      if (data.token.type && !['NATIVE', 'ERC20', 'ERC223'].includes(data.token.type)) {
-        errors.push(`Invalid token type: ${data.token.type}`);
       }
     }
     
