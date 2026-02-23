@@ -18,81 +18,46 @@ function loadMerkleTree(filePath) {
 
 function validateMerkleTree(treeData, expectedRoot) {
   const errors = [];
-  
-  // Check tree structure
-  if (!treeData.values || !Array.isArray(treeData.values)) {
-    errors.push('Missing or invalid values array');
+
+  // Validate new format: {root, leaves}
+  if (!treeData.root || typeof treeData.root !== 'string') {
+    errors.push('Missing or invalid root field');
+  }
+
+  if (!treeData.leaves || !Array.isArray(treeData.leaves)) {
+    errors.push('Missing or invalid leaves array');
     return errors;
   }
-  
-  if (!treeData.tree || !Array.isArray(treeData.tree)) {
-    errors.push('Missing or invalid tree array');
-    return errors;
+
+  // Verify merkle root matches distribution.json if provided
+  if (expectedRoot && treeData.root !== expectedRoot) {
+    errors.push(`Merkle root mismatch: ${treeData.root} vs expected ${expectedRoot}`);
   }
-  
-  if (!treeData.leafEncoding || !Array.isArray(treeData.leafEncoding)) {
-    errors.push('Missing or invalid leafEncoding');
-  }
-  
-  // Verify merkle root matches if provided
-  // Handle standard-v1 format where root is tree[0]
-  const actualRoot = treeData.format === 'standard-v1' && treeData.tree?.[0] 
-    ? treeData.tree[0] 
-    : treeData.root;
-  
-  if (expectedRoot && actualRoot !== expectedRoot) {
-    errors.push(`Merkle root mismatch: ${actualRoot} vs expected ${expectedRoot}`);
-  }
-  
+
   // Validate each leaf
-  for (let i = 0; i < treeData.values.length; i++) {
-    const entry = treeData.values[i];
-    
-    if (!entry.value || !Array.isArray(entry.value)) {
-      errors.push(`Entry ${i}: Missing or invalid value`);
-      continue;
+  for (let i = 0; i < treeData.leaves.length; i++) {
+    const leaf = treeData.leaves[i];
+
+    if (typeof leaf.leafIndex !== 'number') {
+      errors.push(`Leaf ${i}: Missing or invalid leafIndex`);
     }
-    
-    if (entry.value.length !== 3) {
-      errors.push(`Entry ${i}: Expected 3 fields (index, address, amount), got ${entry.value.length}`);
+
+    if (!leaf.address || !/^0x[a-fA-F0-9]{40}$/.test(leaf.address)) {
+      errors.push(`Leaf ${i}: Invalid address format: ${leaf?.address}`);
     }
-    
-    // Validate index is number
-    if (typeof entry.value[0] !== 'number') {
-      errors.push(`Entry ${i}: Index should be a number`);
-    }
-    
-    // Validate address format
-    const address = entry.value[1];
-    if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
-      errors.push(`Entry ${i}: Invalid address format: ${address}`);
-    }
-    
-    // Validate amount is string (for BigInt compatibility)
-    const amount = entry.value[2];
-    if (typeof amount !== 'string' || !/^\d+$/.test(amount)) {
-      errors.push(`Entry ${i}: Amount should be numeric string, got: ${amount}`);
-    }
-    
-    // Check treeIndex exists
-    if (typeof entry.treeIndex !== 'number') {
-      errors.push(`Entry ${i}: Missing or invalid treeIndex`);
+
+    if (!leaf.amount || typeof leaf.amount !== 'string' || !/^\d+$/.test(leaf.amount)) {
+      errors.push(`Leaf ${i}: Amount should be numeric string, got: ${leaf?.amount}`);
     }
   }
-  
-  // Check for duplicate indices
-  const indices = treeData.values.map(v => v.value[0]);
+
+  // Check for duplicate leafIndex values
+  const indices = treeData.leaves.map(l => l.leafIndex);
   const duplicates = indices.filter((item, index) => indices.indexOf(item) !== index);
   if (duplicates.length > 0) {
-    errors.push(`Duplicate indices found: ${[...new Set(duplicates)].join(', ')}`);
+    errors.push(`Duplicate leafIndex values found: ${[...new Set(duplicates)].join(', ')}`);
   }
-  
-  // Verify tree length is sufficient
-  const minTreeLength = Math.max(1, Math.ceil(Math.log2(treeData.values.length)) * 2);
-  if (treeData.tree.length < minTreeLength) {
-    errors.push(`Tree array too short: ${treeData.tree.length} (expected at least ${minTreeLength})`);
-  }
-  
+
   return errors;
 }
 
@@ -122,18 +87,15 @@ async function main() {
       }
       
       const errors = validateMerkleTree(treeData, expectedRoot);
-      
+
       if (errors.length > 0) {
         hasErrors = true;
         console.error(`  ❌ Errors found:`);
         errors.forEach(e => console.error(`    - ${e}`));
       } else {
         console.log(`  ✓ Valid`);
-        console.log(`  - Leaves: ${treeData.values.length}`);
-        const displayRoot = treeData.format === 'standard-v1' && treeData.tree?.[0] 
-          ? treeData.tree[0] 
-          : treeData.root;
-        console.log(`  - Root: ${displayRoot}`);
+        console.log(`  - Leaves: ${treeData.leaves.length}`);
+        console.log(`  - Root: ${treeData.root}`);
       }
     } catch (error) {
       hasErrors = true;
@@ -150,7 +112,7 @@ async function main() {
 
 function findAllMerkleFiles() {
   const files = [];
-  const chains = ['ethereum', 'classic', 'base', 'optimism', 'arbitrum', 'polygon', 'bsc', 'avalanche'];
+  const chains = ['ethereum', 'classic', 'base', 'optimism', 'arbitrum', 'polygon', 'bsc', 'avalanche', 'sepolia', 'mordor', 'arbitrum-sepolia', 'optimism-sepolia', 'base-sepolia', 'smartchain-testnet', 'polygon-amoy', 'avalanchec-fuji'];
   
   for (const chain of chains) {
     const chainPath = path.join(process.cwd(), chain);

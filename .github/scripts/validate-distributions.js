@@ -14,8 +14,9 @@ const SUPPORTED_CHAINS = {
   'optimism': 10,
   'arbitrum': 42161,
   'polygon': 137,
-  'bsc': 56,
-  'avalanche': 43114
+  'smartchain': 56,
+  'avalanchec': 43114,
+  'sepolia': 11155111
 };
 
 const REQUIRED_FIELDS = [
@@ -147,23 +148,23 @@ async function main() {
 function findAllDistributionFiles() {
   const files = [];
   const chains = Object.keys(SUPPORTED_CHAINS);
-  
+
   for (const chain of chains) {
     const chainPath = path.join(process.cwd(), chain);
     if (!fs.existsSync(chainPath)) continue;
-    
+
     const distributors = fs.readdirSync(chainPath);
     for (const distributor of distributors) {
       const distributorPath = path.join(chainPath, distributor);
       if (!fs.statSync(distributorPath).isDirectory()) continue;
-      
+
       const distFile = path.join(distributorPath, 'distribution.json');
       if (fs.existsSync(distFile)) {
         files.push(distFile);
       }
     }
   }
-  
+
   return files;
 }
 
