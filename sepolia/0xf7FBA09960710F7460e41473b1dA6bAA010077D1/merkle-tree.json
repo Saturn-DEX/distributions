@@ -1,0 +1,20 @@
+{
+  "root": "0x8fb1b1d2c941dac8e5a706a539d905979b4f1464a33865918921b90ba8eedab2",
+  "leaves": [
+    {
+      "leafIndex": 0,
+      "address": "0x22d4236c46bba19cff44d74fc829c8c8743dafd6",
+      "amount": "182931061777707417"
+    },
+    {
+      "leafIndex": 1,
+      "address": "0x8a96efa123ce5810582c394f5cd718b3870aa507",
+      "amount": "276026888464020848"
+    },
+    {
+      "leafIndex": 2,
+      "address": "0xebaf19e360a4c20f7f0667198a42ac16b7011501",
+      "amount": "41042049758271734"
+    }
+  ]
+}
