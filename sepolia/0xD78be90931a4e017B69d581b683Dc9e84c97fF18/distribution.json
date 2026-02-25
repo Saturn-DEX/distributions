@@ -1,0 +1,24 @@
+{
+  "_comment": "TESTING DISTRIBUTION - Add 3 testing recipients",
+  "chainId": 11155111,
+  "chainName": "sepolia",
+  "name": "Testing Distribution 2",
+  "description": "This is a testing distribution file. Replace with actual distribution data.",
+  "token": {
+    "address": "0xC3164260e0468b1aF284b5a7663780016A996a68",
+    "name": "Mock Token",
+    "symbol": "MOCK",
+    "decimals": 4
+  },
+  "distributor": "0xD78be90931a4e017B69d581b683Dc9e84c97fF18",
+  "registry": "0x2357f0951Fe2cf82914a8e8318F70Ee7AB55c568",
+  "merkleRoot": "0xcb7d9a33c2c2bd2eb3363275a9d99ea6cb1012d99b337411221b1f530bac4d05",
+  "deadline": 0,
+  "createdAt": 1772002836,
+  "totalRecipients": 3074,
+  "totalAmount": "2990808202478",
+  "createdBy": "0xebAf19E360a4c20F7f0667198a42aC16b7011501",
+  "website": "https://example.com",
+  "twitter": "https://twitter.com/example",
+  "logo": "https://example.com/logo.png"
+}
