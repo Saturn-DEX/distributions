@@ -11,8 +11,8 @@ saturndex-distributions/
 │       ├── distribution.json     # Metadata
 │       └── merkle-tree.json    # Full merkle tree
 ├── classic/
-├── base/
-├── ... (8 chains total)
+├── sepolia/
+├── ...
 ```
 
 ## How to Submit Your Distribution
@@ -21,6 +21,9 @@ saturndex-distributions/
 
 1. You must have already deployed a `SaturnMerkleDistributor` contract on your target chain
 2. You must have registered your distribution in the `SaturnDistributionRegistry`
+- sepolia SaturnDistributionRegistry: "0x2357f0951Fe2cf82914a8e8318F70Ee7AB55c568"
+- ethereum SaturnDistributionRegistry: updated soon
+- classic SaturnDistributionRegistry: updated soon
 3. You must have funded your distributor with tokens
 
 ### Submission Steps
@@ -52,9 +55,9 @@ saturndex-distributions/
      "merkleRoot": "0x...",
      "deadline": 1700000000,
      "createdAt": 1699000000,
+     "createdBy": "0x...",
      "totalRecipients": 1000,
      "totalAmount": "1000000000000000000000",
-     "createdBy": "0x...",
      "website": "https://yourproject.com",
      "twitter": "https://twitter.com/yourproject",
      "logo": "https://yourcdn.com/logo.png"
@@ -79,38 +82,18 @@ Your PR will be automatically validated for:
 
 ### Visibility
 
-All distributions in this repo are automatically displayed on **claim.saturndex.org**. Projects not in this repo can still be claimed directly if users know the distributor address.
+All distributions in this repo are automatically displayed on **https://app.saturndex.org/#/my-account/rewards** (must connect wallet to view content). Projects not in this repo can still be claimed directly if users know the distributor address.
 
 ## For SaturnDEX Team
 
-### Adding a New Distribution
+### Adding a New Distribution Flow
 
-```bash
 # Generate snapshot
-npx ts-node scripts/distribution/snapshot.ts holders \
-  --network ethereum \
-  --token 0x... \
-  --block 24498000 \
-  --output ./snapshots/holders.json
-
 # Generate merkle tree
-npx ts-node scripts/distribution/merkle.ts generate \
-  --input ./snapshots/holders.json \
-  --output ./merkle/output
-
 # Deploy distributor (deployment and funding are separate steps)
-npx ts-node scripts/distribution/deploy-distributor.ts \
-  --network ethereum \
-  --token 0x... \
-  --merkle-root 0x... \
-  --deadline 0 \
-  --registry 0x...
-
 # Fund the distributor (separate step, can be done by project owner)
-# For NATIVE: Send tokens directly to distributor address
-# For ERC20/ERC223: Use token.transfer(distributorAddress, amount)
 
-# Then copy merkle files to this repo
+# Then copy merkle-tree.json to this repo and compose distribution.json
 ```
 
 ### Repository Maintenance
@@ -126,6 +109,7 @@ npx ts-node scripts/distribution/deploy-distributor.ts \
 |-------|--------|----------|
 | Ethereum | `ethereum/` | 1 |
 | Ethereum Classic | `classic/` | 61 |
+| Sepolia | `sepolia/` | 11155111 |
 
 
 ## License
@@ -135,5 +119,5 @@ MIT - See [LICENSE](./LICENSE)
 ## Support
 
 For questions or issues:
-- Discord: https://discord.gg/9PRwAPGx
+- Discord: https://discord.gg/spWVruAgB5 
 - Email: info@saturndex.org
