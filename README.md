@@ -57,10 +57,7 @@ saturndex-distributions/
      "createdAt": 1699000000,
      "createdBy": "0x...",
      "totalRecipients": 1000,
-     "totalAmount": "1000000000000000000000",
-     "website": "https://yourproject.com",
-     "twitter": "https://twitter.com/yourproject",
-     "logo": "https://yourcdn.com/logo.png"
+     "totalAmount": "1000000000000000000000"
    }
    ```
 

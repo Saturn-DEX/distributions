@@ -15,10 +15,7 @@
   "merkleRoot": "0xcb7d9a33c2c2bd2eb3363275a9d99ea6cb1012d99b337411221b1f530bac4d05",
   "deadline": 0,
   "createdAt": 1772002836,
-  "totalRecipients": 3074,
-  "totalAmount": "2990808202478",
   "createdBy": "0xebAf19E360a4c20F7f0667198a42aC16b7011501",
-  "website": "https://example.com",
-  "twitter": "https://twitter.com/example",
-  "logo": "https://example.com/logo.png"
+  "totalRecipients": 3074,
+  "totalAmount": "2990808202478"
 }
