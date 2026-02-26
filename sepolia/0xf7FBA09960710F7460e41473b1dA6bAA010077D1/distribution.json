@@ -17,8 +17,5 @@
   "createdAt": 1772034564,
   "createdBy": "0xebAf19E360a4c20F7f0667198a42aC16b7011501",
   "totalRecipients": 3,
-  "totalAmount": "499999999999999999",
-  "website": "https://example.com",
-  "twitter": "https://twitter.com/example",
-  "logo": "https://example.com/logo.png"
+  "totalAmount": "499999999999999999"
 }
