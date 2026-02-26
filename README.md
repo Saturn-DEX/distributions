@@ -53,6 +53,7 @@ saturndex-distributions/
      "distributor": "0x...",
      "registry": "0x...",
      "merkleRoot": "0x...",
+     "merkleTreeCID": "Qm...",
      "deadline": 1700000000,
      "createdAt": 1699000000,
      "createdBy": "0x...",
