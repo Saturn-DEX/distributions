@@ -1,0 +1,22 @@
+{
+  "chainId": 11155111,
+  "chainName": "sepolia",
+  "name": "Testing Distribution 5",
+  "description": "Testing distribution with IPFS CID (verified)",
+  "token": {
+    "address": "0xC3164260e0468b1aF284b5a7663780016A996a68",
+    "name": "Mock Token",
+    "symbol": "MOCK",
+    "decimals": 4
+  },
+  "distributor": "0xf9bFDe10A4372e664c30f6aE82F8283296714C93",
+  "registry": "0xDB5FA28138628ba4ee1C8C96661091B4BA7bC973",
+  "merkleRoot": "0xcb7d9a33c2c2bd2eb3363275a9d99ea6cb1012d99b337411221b1f530bac4d05",
+  "merkleTreeCID": "QmPe6v52xhip56kefTxiL9invEc5SFNgeMaiPTDE2Joey8",
+  "deadline": 1772689312,
+  "createdAt": 1772084580,
+  "createdBy": "0xebAf19E360a4c20F7f0667198a42aC16b7011501",
+  "totalRecipients": 3074,
+  "totalAmount": "2990808202478",
+  "_comment": "TESTING DISTRIBUTION - all snapshot holders + 3 testing recipients"
+}
